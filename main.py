@@ -46,7 +46,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class FastGPT(PluginBase):
     description = "FastGPT知识库问答插件"
-    author = "老夏的金库"
+    author = "samqin-xiaoyibao社区贡献"
     version = "1.3.0" # 版本号更新，体现新功能
     is_ai_platform = True
 
@@ -345,10 +345,10 @@ class FastGPT(PluginBase):
             if not query:
                 logger.trace("Private chat message is empty, skipping.")
                 return True
+        # if not await self._check_point(bot, message):
+        #     logger.info(f"User {sender_wxid} has insufficient points for FastGPT text query.")
+        #     return False
 
-        if not await self._check_point(bot, message):
-            logger.info(f"User {sender_wxid} has insufficient points for FastGPT text query.")
-            return False
 
         chat_id = f"{sender_wxid}_{self.app_id if self.app_id else 'default'}_text"
         logger.debug(f"Generated chatId for FastGPT text query: {chat_id}")
@@ -460,9 +460,9 @@ class FastGPT(PluginBase):
         # --- 私聊图片处理：直接分析 (维持原有逻辑) ---
         else: # not is_group (私聊)
             logger.info(f"MsgId={msg_id}: Private image received. Proceeding with direct analysis for user {sender_wxid}.")
-            if not await self._check_point(bot, message):
-                logger.info(f"MsgId={msg_id}: User {sender_wxid} has insufficient points for FastGPT image analysis.")
-                return False
+            # if not await self._check_point(bot, message):
+            #     logger.info(f"MsgId={msg_id}: User {sender_wxid} has insufficient points for FastGPT image analysis.")
+            #     return False
 
             try:
                 image_data = await self._extract_image_data_from_message(bot, message)
